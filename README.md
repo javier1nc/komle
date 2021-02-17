@@ -17,7 +17,7 @@ Some of the features are:
 ## Install
 
 ``` bash
-pip3 install git+ssh://git@github.com/kle043/komle.git
+pip3 install git+ssh://git@github.com/javier1nc/komle.git
 ```
 
 Or if the repo is cloned
