@@ -131,7 +131,7 @@ ku.pretty_save(full_log, 'log.xml')
 
 # %%
 
-# You can make a query on for example nameWell, uidWell, nameWellbore etc
+# You can make a query on for example nameWell, uidWell, nameWellbore, uidWellbore, uid, startIndex, endIndex, etc.
 traj_ids_mywell = store_client.get_trajectorys(witsml.obj_trajectory(nameWell='mynameWell'))
 
 print([traj.name for traj in traj_ids_mywell.trajectory])
