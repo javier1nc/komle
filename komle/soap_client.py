@@ -55,16 +55,18 @@ class StoreClient:
     
     def get_bhaRuns(self, 
                     q_bha: witsml.obj_bhaRun,
-                    returnElements: str='id-only') -> witsml.bhaRuns:
+                    OptionsIn: str='returnElements=id-only') -> witsml.bhaRuns:
         '''Get bhaRuns from a witsml store server
     
-        The default is only to return id-only, change to all when you know what bhaRun to get.
+        The default is only to return returnElements=id-only, change to all when you know what bhaRun to get.
     
     
         Args:
             q_bha (witsml.obj_bhaRun): A query bhaRun specifing objects to return, can be an empty bhaRun
-            returnElements (str): String describing data to get on of [all, id-only, header-only, data-only, station-location-only
-                                                                       latest-change-only, requested]
+            OptionsIn (str): String describing data to get on of [returnElements=all, returnElements=id-only, returnElements=header-only, 
+                                                                       returnElements=data-only, returnElements=station-location-only,
+                                                                       returnElements=latest-change-only, returnElements=requested,
+                                                                       returnElements=data-only;requestLatestValues=500]
         Returns:
             witsml.bhaRuns: bhaRuns a collection of bhaRun
         
@@ -75,10 +77,14 @@ class StoreClient:
         q_bhas = witsml.bhaRuns(version=witsml.__version__)
     
         q_bhas.append(q_bha)
+
+        QueryIn = q_bhas.toxml()
+
+        #OptionsIn=f'returnElements={returnElements}'
     
         reply_bhas = self.soap_client.service.WMLS_GetFromStore('bhaRun',
-                                                                q_bhas.toxml(),
-                                                                OptionsIn=f'returnElements={returnElements}'
+                                                                QueryIn,
+                                                                OptionsIn
                                                                )
     
         return witsml.CreateFromDocument(reply_bhas.XMLout)
@@ -86,17 +92,19 @@ class StoreClient:
 
     def get_logs(self, 
                  q_log: witsml.obj_log,
-                 returnElements: str='id-only') -> witsml.logs:
+                 OptionsIn: str='returnElements=id-only') -> witsml.logs:
         '''Get logs from a witsml store server
     
-        The default is to return id-only, change to all when you know what log to get.
-        Pass an empty log with returnElements id-only to get all by id.
+        The default is to return returnElements=id-only, change to all when you know what log to get.
+        Pass an empty log with OptionsIn returnElements=id-only to get all by id.
     
     
         Args:
             q_log (witsml.obj_log): A query log specifing objects to return, for example uidWell, uidWellbore or an empty log
-            returnElements (str): String describing data to get on of [all, id-only, header-only, data-only, station-location-only
-                                                                       latest-change-only, requested]
+            OptionsIn (str): String describing data to get on of [returnElements=all, returnElements=id-only, returnElements=header-only, 
+                                                                       returnElements=data-only, returnElements=station-location-only,
+                                                                       returnElements=latest-change-only, returnElements=requested,
+                                                                       returnElements=data-only;requestLatestValues=500]
         Returns:
             witsml.logs: logs a collection of log
         
@@ -107,27 +115,34 @@ class StoreClient:
         q_logs = witsml.logs(version=witsml.__version__)
     
         q_logs.append(q_log)
+
+        QueryIn = q_logs.toxml()
+
+
+        #OptionsIn = f'returnElements={returnElements}'
     
         reply_logs = self.soap_client.service.WMLS_GetFromStore('log',
-                                                                q_logs.toxml(),
-                                                                OptionsIn=f'returnElements={returnElements}'
+                                                                QueryIn,
+                                                                OptionsIn
                                                                )
 
         return witsml.CreateFromDocument(reply_logs.XMLout)
 
     def get_mudLogs(self, 
                     q_mudlog: witsml.obj_mudLog,
-                    returnElements: str='id-only') -> witsml.mudLogs:
+                    OptionsIn: str='returnElements=id-only') -> witsml.mudLogs:
         '''Get mudLogs from a witsml store server
     
         The default is only to return id-only, change to all when you know what mudLog to get.
-        Pass an empty mudLog with returnElements id-only to get all by id.
+        Pass an empty mudLog with OptionsIn returnElements=id-only to get all by id.
     
     
         Args:
             q_mudlog (witsml.obj_mudLog): A query mudLog specifing objects to return, can be empty
-            returnElements (str): String describing data to get on of [all, id-only, header-only, data-only, station-location-only
-                                                                       latest-change-only, requested]
+            OptionsIn (str): String describing data to get on of [returnElements=all, returnElements=id-only, returnElements=header-only, 
+                                                                       returnElements=data-only, returnElements=station-location-only,
+                                                                       returnElements=latest-change-only, returnElements=requested,
+                                                                       returnElements=data-only;requestLatestValues=500]
         Returns:
             witsml.mudLogs: mudLogs, a collection of mudLog
         
@@ -138,26 +153,32 @@ class StoreClient:
         q_mudlogs = witsml.mudLogs(version=witsml.__version__)
     
         q_mudlogs.append(q_mudlog)
+
+        QueryIn = q_mudlogs.toxml()
+
+        #OptionsIn=f'returnElements={returnElements}'
     
         reply_mudlogs = self.soap_client.service.WMLS_GetFromStore('mudLog',
-                                                                   q_mudlogs.toxml(),
-                                                                   OptionsIn=f'returnElements={returnElements}'
+                                                                   QueryIn,
+                                                                   OptionsIn
                                                                   )
     
         return witsml.CreateFromDocument(reply_mudlogs.XMLout)
 
     def get_trajectorys(self, 
                         q_traj: witsml.obj_trajectory,
-                        returnElements: str='id-only') -> witsml.trajectorys:
+                        OptionsIn: str='returnElements=id-only') -> witsml.trajectorys:
         '''Get trajectorys from a witsml store server
     
-        The default is only to return id-only, change to all when you know what trajectory to get.
-        Pass an empty trajectory with returnElements id-only to get all by id.
+        The default is only to return returnElements=id-only, change to all when you know what trajectory to get.
+        Pass an empty trajectory with OptionsIn returnElements=id-only to get all by id.
     
         Args:
             q_traj (witsml.obj_trajectory): A query trajectory specifing objects to return
-            returnElements (str): String describing data to get on of [all, id-only, header-only, data-only, station-location-only
-                                                                       latest-change-only, requested]
+            OptionsIn (str): String describing data to get on of [returnElements=all, returnElements=id-only, returnElements=header-only, 
+                                                                       returnElements=data-only, returnElements=station-location-only,
+                                                                       returnElements=latest-change-only, returnElements=requested,
+                                                                       returnElements=data-only;requestLatestValues=500]
         Returns:
             witsml.trajectorys: trajectorys, a collection of trajectory
         
@@ -168,26 +189,32 @@ class StoreClient:
         q_trajs = witsml.trajectorys(version=witsml.__version__)
     
         q_trajs.append(q_traj)
+
+        QueryIn = q_trajs.toxml()
+
+        #OptionsIn=f'returnElements={returnElements}
     
         reply_traj = self.soap_client.service.WMLS_GetFromStore('trajectory',
-                                                                q_trajs.toxml(),
-                                                                OptionsIn=f'returnElements={returnElements}'
+                                                                QueryIn,
+                                                                OptionsIn
                                                                )
     
         return witsml.CreateFromDocument(reply_traj.XMLout)
 
     def get_wellbores(self, 
                       q_wellbore: witsml.obj_wellbore,
-                      returnElements: str='id-only') -> witsml.wellbores:
+                      OptionsIn: str='returnElements=id-only') -> witsml.wellbores:
         '''Get wellbores from a witsml store server
     
-        The default is only to return id-only, change to all when you know what wellbore to get.
+        The default is only to return returnElements=id-only, change to all when you know what wellbore to get.
     
     
         Args:
             q_wellbore (witsml.obj_wellbore): A query wellbore specifing objects to return, can be an empty wellbore
-            returnElements (str): String describing data to get on of [all, id-only, header-only, data-only, station-location-only
-                                                                       latest-change-only, requested]
+            OptionsIn (str): String describing data to get on of [returnElements=all, returnElements=id-only, returnElements=header-only, 
+                                                                       returnElements=data-only, returnElements=station-location-only,
+                                                                       returnElements=latest-change-only, returnElements=requested,
+                                                                       returnElements=data-only;requestLatestValues=500]
         Returns:
             witsml.wellbores: wellbores
         
@@ -198,10 +225,14 @@ class StoreClient:
         q_wellbores = witsml.wellbores(version=witsml.__version__)
     
         q_wellbores.append(q_wellbore)
+
+        QueryIn = q_wellbores.toxml()
+
+        #OptionsIn=f'returnElements={returnElements}'
     
         reply_wellbores = self.soap_client.service.WMLS_GetFromStore('wellbore',
-                                                                     q_wellbores.toxml(),
-                                                                     OptionsIn=f'returnElements={returnElements}'
+                                                                     QueryIn,
+                                                                     OptionsIn
                                                                     )
     
         return witsml.CreateFromDocument(reply_wellbores.XMLout)
